@@ -71,29 +71,59 @@ class SignUpComponent extends React.Component {
         )
     }
 
+    formIsValid = () => this.state.password === this.state.passwordConfirmation;
     userTyping = (type, e) => {
-       switch(type){
-           case 'email':
-           this.setState({ email: e.target.value })
-           break;
 
-           case 'password':
-               this.setState({ password: e.target.value })
-               break;
+        switch (type) {
+            case 'email':
+                this.setState({ email: e.target.value })
+                break;
+
+            case 'password':
+                this.setState({ password: e.target.value })
+                break;
 
             case 'passwordConfirmation':
                 this.setState({ passwordConfirmation: e.target.value })
                 break;
 
-                default:
-                    break;
-       }
+            default:
+                break;
+        }
 
-    //    console.log('this is the email:', this.state.email)
+        //    console.log('this is the email:', this.state.email)
     }
     submitSignup = (e) => {
         e.preventDefault();
-        console.log('submitting', this.state)
+        if (!this.formIsValid()) {
+            this.setState({ signupError: "Passwords do not match" })
+            return;
+        }
+
+
+        // if form is valid we want to add authentication and user firebase DB
+        // firebase auth and create... method
+
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(authRes => {
+                const userObj = {
+                    email: authRes.user.email
+                }
+                firebase.firestore()
+                    .collection('users') // accesses the user collection created in firebase
+                    .doc(this.state.email)
+                    .set(userObj)
+                    .then(()=>{
+                        this.props.history.push('/dashboard')
+                    }, dbErr => {
+                        console.log(dbErr)
+                        this.setState({ signupError: 'failed to add user'})
+                    }) // once the 
+                
+            }, authErr => {
+                console.log(authErr)
+                this.setState({ signupError: ' Failed to add user '})
+            })
     }
 }
 
