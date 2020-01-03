@@ -27,16 +27,29 @@ class SignUpComponent extends React.Component {
                     <form onSubmit={(e) => this.submitSignup(e)} className={classes.form}>
                         <FormControl required fullWidth margin='normal'>
                             <InputLabel htmlFor="signup-email-input"> Enter your email addres</InputLabel>
-                            <Input autoComplete='email' onChange={(e)=> this.userTyping('email', e)}autoFocus id='signup-email-input'></Input>
+                            <Input autoComplete='email' onChange={(e)=> this.userTyping('email', e)} autoFocus id='signup-email-input'></Input>
                             </FormControl>
+                            <FormControl required fullWidth margin='normal'>
+                            <InputLabel htmlFor='signup-password-input'> Create Password</InputLabel>
+                            <Input type='password' onChange={(e) => this.userTyping('password', e)} autoFocus id='signup-password-input'></Input>
+                            </FormControl>
+                            <FormControl required fullWidth margin='normal'>
+                            <InputLabel htmlFor='signup-password-confirmation-input'> Confirm Your Password</InputLabel>
+                            <Input type='password' onChange={(e) => this.userTyping('passwordConfirmation', e)} autoFocus id='signup-password-confirmation-input'></Input>
+                            </FormControl>
+
+                            <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}> Submit
+                            </Button>
+
+                
                     </form>
                 </Paper>
             </main>
         )
     }
 
-userTyping = (e) =>{
-    console.log('Typed')
+userTyping = (type, e) => {
+    console.log(type,e)
 }
     submitSignup = (e) => {
         console.log('submitting')
