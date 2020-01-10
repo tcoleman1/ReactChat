@@ -43,6 +43,13 @@ class LoginComponent extends React.Component{
             </FormControl>
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}> LogIn</Button>
             </form>
+
+            {
+                this.state.loginError? 
+                <Typography component='h5' variant='h6' className={classes.errorText}> Incorrect Login Info </Typography>
+            : null
+            }
+
             <Typography component='h5' variant='h6' className={classes.noAccountHeader}> Don't Have An Account ?</Typography>
             <Link className={classes.signUpLink} to="/signup"> Sign Up!</Link>
             </Paper>
@@ -51,10 +58,30 @@ class LoginComponent extends React.Component{
     }
 
     userTyping= (type, e) => {
-        console.log(type,e)
+        switch(type){
+            case 'email':
+                this.setState({ email : e.target.value})
+                break;
+
+                case 'password':
+                    this.setState({ password : e.target.value })
+                    break;
+
+        }
     }
     submitLogin = (e) => {
-        console.log('submiting')
+        e.preventDefault()
+        console.log('submiting', this.state)
+
+        firebase.auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => {
+            this.props.history.push('/dashboard')
+        }, err => {
+            this.setState({ errorText : 'Error'})
+            console.log(err)
+        });
+
     }
 }
 
