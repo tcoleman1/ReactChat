@@ -13,6 +13,15 @@ import Button from '@material-ui/core/Button';
 
 class LoginComponent extends React.Component{
 
+    constructor(){
+        super();
+        this.state = {
+            email: null,
+            password: null,
+            loginError: ""
+        }
+    }
+
     render() {
 
        const { classes } = this.props //taking classes property from this.props and setting it to classes var. 
