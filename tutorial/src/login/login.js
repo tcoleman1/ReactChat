@@ -78,7 +78,7 @@ class LoginComponent extends React.Component{
         .then(() => {
             this.props.history.push('/dashboard')
         }, err => {
-            this.setState({ errorText : 'Error'})
+            this.setState({ loginError : 'Error'})
             console.log(err)
         });
 
