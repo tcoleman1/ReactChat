@@ -113,16 +113,16 @@ class SignUpComponent extends React.Component {
                     .collection('users') // accesses the user collection created in firebase
                     .doc(this.state.email)
                     .set(userObj)
-                    .then(()=>{
+                    .then(() => {
                         this.props.history.push('/dashboard')
-                    }, dbErr => {
-                        console.log(dbErr)
-                        this.setState({ signupError: 'failed to add user'})
+                    }, dbError => {
+                        console.log(dbError)
+                        this.setState({ signupError: 'failed to add user' })
                     }) // once the 
-                
-            }, authErr => {
-                console.log(authErr)
-                this.setState({ signupError: ' Failed to add user '})
+
+            }, authError => {
+                console.log(authError)
+                this.setState({ signupError: ' Failed to add user ' })
             })
     }
 }
