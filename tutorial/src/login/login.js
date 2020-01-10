@@ -22,7 +22,7 @@ class LoginComponent extends React.Component{
             <Paper className={classes.paper}>
             <Typography component='h1' variant='h5'> Log In </Typography>
             
-            <form className={classes.form} onSubmit={(e) => this.submitLogin(e)}></form>
+            <form className={classes.form} onSubmit={(e) => this.submitLogin(e)}>
             <FormControl required fullWidth margin='normal'>
             <InputLabel htmlFour='login-email-input'> Enter your email address</InputLabel>
              <Input autoComplete='email' autoFocus id='login-email-input' onChange={(e) => this.userTyping('email', e)}></Input> {/*onchange takes the change event and passes it to the this.userTyping function which takes the type of event we're typing on which is the email and event*/}
@@ -30,8 +30,12 @@ class LoginComponent extends React.Component{
 
             <FormControl required fullWidth margin='normal'>
             <InputLabel htmlFour='login-password-input'> Enter Password</InputLabel>
-             <Input autoComplete='password' autoFocus id='login-password-input' onChange={(e) => this.userTyping('password', e)}></Input> 
+             <Input id='login-password-input' onChange={(e) => this.userTyping('password', e)}></Input> 
             </FormControl>
+            <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}> LogIn</Button>
+            </form>
+            <Typography component='h5' variant='h6' className={classes.noAccountHeader}> Don't Have An Account ?</Typography>
+            <Link className={classes.signUpLink} to="/signup"> Sign Up!</Link>
             </Paper>
             </main>
         )
